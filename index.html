@@ -2,377 +2,311 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Organizador — Google Drive</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Acervo — Portfólio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#141416;--bg2:#1f1f22;--bg3:#2a2a2e;--ink:#fff;--mute:#9d9da3;--ac:#ff5a1f;--ac2:#ffb020;--line:rgba(255,255,255,.12);--ok:#22c55e;}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Outfit',system-ui,sans-serif;min-height:100vh}
-a{color:var(--ac2)}
-header{display:flex;align-items:center;gap:16px;padding:16px 22px;border-bottom:2px solid var(--ac);background:#0e0e10;flex-wrap:wrap}
-header h1{font-size:1.3rem;margin:0;font-weight:800}header h1 b{color:var(--ac)}
-header .sp{flex:1}
-.badge{font-size:.78rem;padding:6px 12px;border-radius:20px;font-weight:700;display:flex;align-items:center;gap:6px}
-.badge.on{background:rgba(34,197,94,.15);color:var(--ok)}.badge.off{background:rgba(255,255,255,.08);color:var(--mute)}
-.badge i{width:8px;height:8px;border-radius:50%;background:currentColor}
-.btn{background:var(--bg3);border:1px solid var(--line);color:#fff;padding:9px 16px;border-radius:8px;font-family:inherit;font-weight:600;font-size:.85rem;cursor:pointer}
-.btn:hover{border-color:var(--ac)}.btn.p{background:var(--ac);border-color:var(--ac)}.btn.p:hover{background:var(--ac2);color:#111}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.tabs{display:flex;gap:4px;padding:0 22px;background:#0e0e10;overflow-x:auto}
-.tabs button{background:none;border:0;color:var(--mute);padding:12px 16px;font-family:inherit;font-weight:600;font-size:.88rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
-.tabs button.on{color:#fff;border-color:var(--ac)}
-main{max-width:1180px;margin:0 auto;padding:22px}
-.view{display:none}.view.on{display:block}
-.setup{max-width:640px;margin:6vh auto;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:34px}
-.setup h2{margin:0 0 6px;font-size:1.5rem}.setup p{color:var(--mute);font-size:.92rem;line-height:1.6;margin:0 0 18px}
-.setup label{display:block;font-size:.8rem;font-weight:700;color:#ddd;margin:16px 0 6px}
-.setup input{width:100%;background:var(--bg3);border:1px solid var(--line);color:#fff;padding:11px 12px;border-radius:8px;font:inherit;font-size:.92rem}
-.setup .steps{background:var(--bg3);border-radius:8px;padding:16px 18px;font-size:.85rem;line-height:1.9;color:#ddd;margin-top:10px}
-.setup .steps b{color:var(--ac2)}
-.wizard{background:linear-gradient(135deg,#2b2015,#1f1f22);border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:26px}
-.wizard h2{margin:0 0 4px;font-size:1.3rem}.wizard p{color:var(--mute);font-size:.88rem;margin:0 0 16px}
-.wrow{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-.wf{flex:1;min-width:160px}.wf label{display:block;font-size:.76rem;font-weight:700;color:#ddd;margin-bottom:5px}
-.wf input,.wf select{width:100%;background:var(--bg3);border:1px solid var(--line);color:#fff;padding:10px 12px;border-radius:8px;font:inherit;font-size:.88rem}
-.result{margin-top:16px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);border-radius:8px;padding:14px;display:none;align-items:center;gap:12px;flex-wrap:wrap}
-.result.on{display:flex}.result code{background:#000;padding:6px 10px;border-radius:6px;font-size:.82rem;flex:1;min-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.panes{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
-.crumbs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;font-size:.85rem;color:var(--mute)}
-.crumbs button{background:none;border:0;color:var(--ac2);cursor:pointer;font:inherit;padding:0}
-.tree{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px;max-height:70vh;overflow:auto}
-.tree .item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:.86rem}
-.tree .item:hover{background:var(--bg3)}.tree .item.sel{background:rgba(255,90,31,.18);color:var(--ac2)}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.filesbox{background:var(--bg2);border:1px solid var(--line);border-radius:10px;min-height:300px}
-.frow{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);font-size:.88rem}
-.frow:last-child{border-bottom:0}.frow:hover{background:var(--bg3)}
-.frow input[type=checkbox]{width:16px;height:16px}
-.frow .ic{width:22px;text-align:center;font-size:1.1rem}
-.frow .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.frow .dt{color:var(--mute);font-size:.78rem;flex:none}
-.frow a{color:var(--mute);text-decoration:none;font-size:.8rem}.frow a:hover{color:var(--ac2)}
-.empty{text-align:center;color:var(--mute);padding:60px 20px;font-size:.9rem}
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
-.ov.on{display:flex}
-.mo{background:var(--bg2);border:1px solid var(--line);border-radius:12px;max-width:460px;width:100%;padding:24px;max-height:85vh;overflow:auto}
-.mo h3{margin:0 0 14px}
-.mo .tree{max-height:320px}
-.ma{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0e0e10;border:1px solid var(--ac);padding:11px 22px;border-radius:8px;font-size:.88rem;opacity:0;pointer-events:none;transition:.3s;z-index:90}
-.toast.on{opacity:1}
-.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.25);border-top-color:var(--ac);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-3px}
-@keyframes sp{to{transform:rotate(360deg)}}
-.cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.cfg-grid .full{grid-column:1/-1}
-@media (max-width:760px){.panes{grid-template-columns:1fr}.cfg-grid{grid-template-columns:1fr}}
+:root{--bg:#141416;--bg2:#222226;--ink:#fff;--mute:#c8c8cc;--ac:#ff5a1f;--ac2:#ffb020;--line:rgba(255,255,255,.14);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Outfit',system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}button{font-family:inherit}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(20,20,22,.94);backdrop-filter:blur(8px);border-bottom:2px solid var(--ac)}
+nav{display:flex;align-items:center;gap:30px;padding:14px 24px;max-width:1200px;margin:0 auto;flex-wrap:wrap}
+.logo{font-weight:800;font-size:1.5rem;padding-right:24px;border-right:1px solid var(--line)}.logo b{color:var(--ac)}
+nav a.l{text-decoration:none;font-size:.85rem;font-weight:600}nav a.l:hover{color:var(--ac)}
+nav .pill{margin-left:auto;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#111;font-weight:700;padding:10px 20px;border-radius:30px;text-decoration:none;font-size:.85rem}
+.hero{position:relative;min-height:600px;overflow:hidden;background:#141416}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:fl 12s ease-in-out infinite alternate}
+.b1{width:480px;height:480px;background:var(--ac);top:-120px;right:8%}.b2{width:380px;height:380px;background:#3a7bd5;bottom:-140px;left:4%;animation-delay:-5s}
+@keyframes fl{to{transform:translate(50px,40px) scale(1.15)}}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:40px max(24px,calc((100% - 1200px)/2 + 24px));opacity:0;visibility:hidden;transition:opacity .6s}
+.slide.on{opacity:1;visibility:visible}
+.txt{max-width:640px;position:relative}
+.txt h1{font-size:clamp(2.4rem,6vw,4.8rem);line-height:1.04;margin:0 0 18px;font-weight:800;background:linear-gradient(90deg,#fff 40%,var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.txt p{font-size:1.15rem;color:var(--mute);margin:0 0 30px}
+.cta{display:inline-flex;align-items:center;gap:50px;background:var(--ac);padding:20px 30px;text-decoration:none;font-weight:600;transition:.2s;box-shadow:0 10px 30px rgba(255,90,31,.4)}
+.cta:hover{transform:translateY(-3px);background:var(--ac2);color:#111}
+.polaroid{flex:none;width:340px;background:#f3f1ec;padding:16px 16px 60px;transform:rotate(6deg);box-shadow:0 30px 70px rgba(0,0,0,.6);position:relative;animation:sw 6s ease-in-out infinite alternate}
+@keyframes sw{to{transform:rotate(3deg) translateY(-10px)}}
+.polaroid .pic{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:7rem}
+.polaroid span{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:'Caveat',cursive;font-size:2rem;color:#333;transform:rotate(-4deg)}
+.arrow{position:absolute;top:50%;width:46px;height:46px;border:1px solid var(--line);background:rgba(0,0,0,.35);color:#fff;border-radius:50%;cursor:pointer;font-size:1.4rem;z-index:5}.arrow:hover{background:var(--ac)}
+.prev{left:14px}.next{right:14px}
+.dots{position:absolute;bottom:22px;left:0;right:0;display:flex;justify-content:center;gap:12px;z-index:5}
+.dots button{width:12px;height:12px;border-radius:50%;border:0;background:rgba(255,255,255,.4);cursor:pointer;padding:0}
+.dots button.on{background:var(--ac);box-shadow:0 0 0 4px rgba(255,90,31,.35)}
+.rib{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#111;overflow:hidden;white-space:nowrap;font-weight:800;font-size:1.1rem;padding:14px 0;transform:rotate(-1deg);margin:-8px -10px 0;position:relative;z-index:3}
+.rib div{display:inline-block;animation:mq 22s linear infinite}@keyframes mq{to{transform:translateX(-50%)}}
+.stats{max-width:1200px;margin:0 auto;padding:60px 24px 10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;text-align:center}
+.stats b{display:block;font-size:3.4rem;font-weight:800;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats span{color:var(--mute);font-size:.9rem}
+.news{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:50px;position:relative}
+.news article{padding:46px 30px 40px;min-height:330px;display:flex;flex-direction:column}
+.news h2{font-size:1.8rem;line-height:1.2;margin:0 0 16px;font-weight:600}
+.news p{color:#ececee;font-size:.95rem;line-height:1.55;margin:0 0 22px}
+.news a{margin-top:auto;font-weight:600;font-size:.9rem;text-decoration:underline;text-decoration-color:var(--ac);text-underline-offset:5px}
+.n0{background:linear-gradient(160deg,#2b3a4a,#1d2733)}.n1{background:linear-gradient(160deg,#4a3d5a,#2a2035)}.n2{background:linear-gradient(160deg,#b8801a,#5a3a08)}
+section.proj{max-width:1200px;margin:0 auto;padding:80px 24px 60px}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.sec-head h2{font-size:2.8rem;margin:0;font-weight:800}.sec-head h2 em{color:var(--ac);font-style:normal}
+.tools{display:flex;gap:10px;flex-wrap:wrap}
+.tools input,.tools select{background:var(--bg2);border:1px solid var(--line);color:#fff;padding:12px 16px;font-family:inherit;font-size:.9rem;min-width:190px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px}
+.card{background:var(--bg2);border:1px solid var(--line);transition:.25s;display:flex;flex-direction:column;position:relative}
+.card:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 20px 40px rgba(255,90,31,.2)}
+.cv{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:4.2rem;position:relative;overflow:hidden}.cv img{width:100%;height:100%;object-fit:cover}
+.cb{padding:20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cb small{color:var(--ac);font-weight:700;font-size:.73rem;letter-spacing:.5px;text-transform:uppercase}
+.cb h3{margin:0;font-size:1.25rem;font-weight:600;line-height:1.25}.cb p{margin:0;color:var(--mute);font-size:.9rem;line-height:1.5}
+.cb a.q{margin-top:auto;padding-top:10px;font-weight:600;font-size:.88rem;text-decoration:none;color:var(--ac)}
+.priv{position:absolute;top:10px;left:10px;background:#111;color:var(--ac2);font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:20px;z-index:2}
+.note{background:rgba(255,176,32,.12);color:var(--ac2);font-size:.8rem;padding:8px 10px;border-radius:6px;text-decoration:none}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:50px 0}
+footer{background:#0d0d0f;border-top:2px solid var(--ac);padding:44px 24px;text-align:center;color:var(--mute);font-size:.9rem}
+footer strong{display:block;font-size:1.5rem;color:#fff;margin-bottom:8px}#sec{cursor:default}
+.bar{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:60;background:#fff;color:#111;border-radius:40px;padding:8px 10px 8px 20px;display:none;align-items:center;gap:8px;box-shadow:0 10px 40px rgba(0,0,0,.6);font-size:.85rem;font-weight:600;flex-wrap:wrap;justify-content:center;max-width:94vw}
+.bar.on{display:flex}.bar i{width:9px;height:9px;background:#22c55e;border-radius:50%}
+.bar button{border:0;border-radius:30px;padding:9px 15px;font-weight:600;cursor:pointer;background:#eee;font-size:.82rem}.bar button.p{background:var(--ac);color:#fff}
+.ca{display:none;gap:8px;padding:0 20px 18px}.adm .ca{display:flex}.ca button{flex:1;background:none;border:1px solid var(--line);color:#fff;padding:8px;cursor:pointer;font-size:.8rem;font-weight:600}.ca button:hover{border-color:var(--ac);color:var(--ac)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:18px;z-index:80}.ov.on{display:flex}
+.mo{background:#fff;color:#111;max-width:520px;width:100%;max-height:90vh;overflow:auto;padding:26px;border-radius:12px}
+.mo h2{margin:0 0 16px;font-size:1.4rem}.mo label{display:block;font-size:.76rem;font-weight:700;color:#555;margin:12px 0 5px}
+.mo input,.mo textarea{width:100%;font:inherit;font-size:.92rem;padding:10px;border:1px solid #ccc;border-radius:6px}.mo textarea{min-height:70px}
+.mo input[type=checkbox]{width:auto;margin-right:8px}.mo hr{border:0;border-top:1px dashed #ccc;margin:16px 0}
+.mo .it{padding:8px;cursor:pointer;border-radius:6px}.mo .it:hover{background:#eee}.mo .mu{color:#777}
+.ma{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.ma button{padding:10px 18px;border:0;border-radius:6px;font-weight:700;cursor:pointer;background:#eee}.ma .p{background:var(--ac);color:#fff}
+.err{color:#c0392b;font-size:.82rem;min-height:1em;margin-top:8px}.hint{font-size:.78rem;color:#777;margin-top:8px}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#111;border:1px solid var(--ac);padding:10px 20px;border-radius:8px;z-index:99;font-size:.88rem;opacity:0;pointer-events:none;transition:.3s}.toast.on{opacity:1}
+.mr{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:.72rem;padding:3px 9px;border-radius:12px;font-weight:700}
+.mo label.drop{display:block;border:2px dashed #bbb;border-radius:8px;padding:16px;text-align:center;cursor:pointer;color:#555;font-weight:600;margin:0;font-size:.9rem}.mo label.drop:hover{border-color:var(--ac);color:var(--ac)}
+.th{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.tb{position:relative;width:64px;height:64px;border-radius:6px;overflow:hidden;border:1px solid #ccc}.tb img{width:100%;height:100%;object-fit:cover}
+.tb button{position:absolute;top:2px;right:2px;width:18px;height:18px;border:0;border-radius:50%;background:rgba(0,0,0,.75);color:#fff;font-size:11px;cursor:pointer;padding:0}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:95;padding:24px}.lb.on{display:flex}
+.lb img{max-width:92vw;max-height:82vh;border-radius:6px}.lb .x{position:absolute;top:14px;right:22px;background:none;border:0;color:#fff;font-size:2.2rem;cursor:pointer}
+.lb .a{position:absolute;top:50%;background:rgba(255,255,255,.14);border:0;color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.5rem;cursor:pointer}.lb .l{left:14px}.lb .r{right:14px}
+.lb .c{position:absolute;bottom:18px;color:#ddd;font-size:.85rem}
+/* Drive + PDF */
+.dv{position:fixed;inset:0;z-index:70;background:var(--bg);overflow:auto;display:none}.dv.on{display:block}
+.dh{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#0e0e10;border-bottom:2px solid var(--ac);flex-wrap:wrap;position:sticky;top:0;z-index:2}.dh b{font-size:1.2rem;font-weight:800;flex:1}.dh b i{color:var(--ac);font-style:normal}
+.dv button,.dv .bt{background:#2a2a2e;border:1px solid var(--line);color:#fff;padding:9px 14px;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;text-decoration:none;display:inline-block}
+.dv button:hover,.dv .bt:hover{border-color:var(--ac)}.dv button:disabled{opacity:.4;cursor:not-allowed}.dv .p{background:var(--ac);border-color:var(--ac)}
+.dv .lk{background:none;border:0;color:var(--ac2);padding:0;font:inherit}.lk{background:none;border:0;color:var(--ac);cursor:pointer;font:inherit;padding:0}
+.bd{font-size:.78rem;color:var(--mute)}.bd.on{color:#22c55e}
+.dtb{display:flex;gap:4px;padding:0 20px;background:#0e0e10;overflow-x:auto}.dv .dtb button{background:none;border:0;border-bottom:3px solid transparent;border-radius:0;color:var(--mute)}.dv .dtb button.on{color:#fff;border-color:var(--ac)}
+.dm{max-width:1100px;margin:0 auto;padding:20px}.dview{display:none}.dview.on{display:block}
+.dc{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}.dc h3{margin:0 0 6px}.mu{color:var(--mute);font-size:.85rem;line-height:1.5}
+.dr{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:12px}.dr>div{flex:1;min-width:110px}
+.dv label{display:block;font-size:.76rem;font-weight:700;margin:0 0 5px}
+.dv input:not([type=checkbox]),.dv select{width:100%;background:#2a2a2e;border:1px solid var(--line);color:#fff;padding:10px;border-radius:8px;font:inherit}
+.dp{display:grid;grid-template-columns:240px 1fr;gap:16px;align-items:start}
+.dtree{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px;max-height:65vh;overflow:auto}
+.it{padding:8px 10px;border-radius:6px;cursor:pointer;font-size:.86rem}.dtree .it:hover{background:#2a2a2e}
+.fb{background:var(--bg2);border:1px solid var(--line);border-radius:10px;min-height:260px}
+.fr{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:.88rem}.fr .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fr a{color:var(--ac2);font-size:.8rem}
+.res{display:none;margin-top:14px;gap:10px;align-items:center;flex-wrap:wrap;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);padding:12px;border-radius:8px}.res.on{display:flex}.res code{flex:1;min-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#000;padding:6px 10px;border-radius:6px;font-size:.8rem}
+iframe.pf{width:100%;height:65vh;border:1px solid var(--line);border-radius:10px;background:#fff}
+@media(max-width:820px){.polaroid{display:none}.hero{min-height:540px}nav{gap:16px}.logo{border:0;padding:0}nav .pill{margin-left:0}.dp{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header>
- <h1>Organizador<b>.</b>Drive</h1>
- <div class="sp"></div>
- <span class="badge off" id="stBadge"><i></i>Desconectado</span>
- <button class="btn" id="btnAuth">Conectar com Google</button>
- <button class="btn" id="btnLogout" style="display:none">Desconectar</button>
-</header>
+<header class="top"><nav><div class="logo">Acervo<b>.</b></div><a class="l" href="#inicio">Início</a><a class="l" href="#novidades">Novidades</a><a class="l" href="#projetos">Projetos</a><a class="pill" href="#contato">Fale comigo</a></nav></header>
 
-<div class="tabs" id="tabs" style="display:none">
- <button class="on" data-t="organizar">Organizar rápido</button>
- <button data-t="arquivos">Arquivos</button>
- <button data-t="config">Configurações</button>
+<section class="hero" id="inicio"><div class="blob b1"></div><div class="blob b2"></div><div id="slides"></div>
+<button class="arrow prev" id="prev" aria-label="Anterior">‹</button><button class="arrow next" id="next" aria-label="Próximo">›</button><div class="dots" id="dots"></div></section>
+<div class="rib"><div id="rib"></div></div>
+<div class="stats"><div><b id="s1">0</b><span>projetos entregues</span></div><div><b id="s2">0</b><span>clientes atendidos</span></div><div><b id="s3">0</b><span>anos de estrada</span></div></div>
+<section class="news" id="novidades"></section>
+<section class="proj" id="projetos"><div class="sec-head"><h2>Projetos <em>em destaque</em></h2>
+<div class="tools"><input id="q" placeholder="Buscar projeto ou cliente..."><select id="ord"><option value="d">Mais recentes</option><option value="a">Ordem alfabética</option></select></div></div><div class="grid" id="grid"></div></section>
+<footer id="contato"><strong>Vamos criar algo juntos?</strong>contato@seudominio.com · Resposta em até 24 horas<br><br><span id="sec">©</span> 2026 Acervo</footer>
+
+<div class="bar" id="bar"><i></i>Modo edição<button id="eS">Banner</button><button id="eN">Novidades</button><button id="eD">📁 Drive / PDF</button><button class="p" id="eP">+ Projeto</button><button id="out">Sair</button></div>
+
+<!-- Painel Drive + PDF (só abre no modo edição) -->
+<div class="dv" id="dv">
+ <div class="dh"><b>Organizador<i>.</i>Drive</b><span class="bd" id="bd">● Desconectado</span><button id="dAuth">Conectar com Google</button><button id="dX">Fechar ✕</button></div>
+ <div class="dtb" id="dtabs"><button class="on" data-t="r">Organizar rápido</button><button data-t="a">Arquivos</button><button data-t="p">Editar PDF</button><button data-t="c">Configurações</button></div>
+ <div class="dm">
+  <div class="dview on" id="d-r">
+   <div class="dc"><h3>⚡ Criar pasta em 1 clique</h3><p class="mu">Monta <b>Clientes / Cliente / Projeto</b> no seu Drive (reaproveita o que já existe) e gera o link.</p>
+    <div class="dr"><div><label>Cliente</label><input id="wC" placeholder="Ex: Maria Souza"></div><div><label>Projeto</label><input id="wP" placeholder="Ex: Identidade visual"></div><button class="p" id="wGo">Criar / abrir pasta</button></div>
+    <div class="res" id="wOut"><span>📁</span><code id="wL"></code><button id="wCp">Copiar</button><a class="bt" id="wOpen" target="_blank" rel="noopener">Abrir no Drive</a><button class="p" id="wNew">+ Projeto no site</button></div></div>
+   <div class="dc"><h3>📥 Pastas recentes</h3><div id="dRec" style="display:flex;flex-direction:column;gap:8px;margin-top:10px"></div></div>
+  </div>
+  <div class="dview" id="d-a">
+   <div class="mu" id="dCr" style="margin-bottom:12px"></div>
+   <div class="dp"><div class="dtree" id="dTree"></div><div>
+    <div class="dr" style="margin:0 0 12px"><button id="dNf">+ Nova pasta</button><button id="dUp">+ Enviar arquivo</button><input type="file" id="dFi" multiple hidden><button id="dMv" disabled>Mover</button><button id="dRn" disabled>Renomear</button><button id="dTr" disabled>Lixeira</button><button id="dRf">↻</button></div>
+    <div class="fb" id="dFiles"><div class="mu" style="padding:40px;text-align:center">Conecte-se ao Google para ver seus arquivos.</div></div></div></div>
+  </div>
+  <div class="dview" id="d-p">
+   <div class="dc"><h3>✏️ Editar PDF</h3><p class="mu">Abra um PDF do computador ou use "Editar PDF" na aba Arquivos. Dá para adicionar texto (inclusive sobre um trecho, com tarja branca), girar, excluir páginas e juntar outro PDF. Não altera o texto original já impresso.</p>
+    <div class="dr"><label class="bt" style="margin:0">📂 Abrir PDF<input type="file" id="pOpen" accept="application/pdf" hidden></label><span id="pNm" class="mu">Nenhum PDF aberto</span></div></div>
+   <div class="dc"><h3>Adicionar texto</h3><div class="dr"><div style="flex:3"><label>Texto</label><input id="pT"></div><div><label>Página</label><input id="pg" type="number" value="1" min="1"></div><div><label>X</label><input id="pX" type="number" value="50"></div><div><label>Y</label><input id="pY" type="number" value="750"></div><div><label>Tamanho</label><input id="pS" type="number" value="12"></div></div>
+    <div class="dr"><label style="margin:0"><input type="checkbox" id="pBg"> Tarja branca atrás (cobre texto antigo)</label><button class="p" id="pAdd">Adicionar texto</button></div>
+    <p class="mu">X e Y em pontos, a partir do canto inferior esquerdo (A4 ≈ 595 × 842).</p></div>
+   <div class="dc"><h3>Páginas</h3><div class="dr"><button id="pRot">↻ Girar página (campo Página)</button><button id="pDel">🗑 Excluir página (campo Página)</button><label class="bt" style="margin:0">➕ Juntar outro PDF<input type="file" id="pMg" accept="application/pdf" hidden></label></div></div>
+   <div class="dr" style="margin:0 0 12px"><button id="pDl">⬇ Baixar</button><button id="pSv" class="p">Salvar no Drive (substituir)</button><button id="pCp">Salvar cópia na pasta atual</button></div>
+   <iframe class="pf" id="pF" title="Prévia do PDF"></iframe>
+  </div>
+  <div class="dview" id="d-c">
+   <div class="dc"><h3>Configurações</h3><p class="mu">O Google exige um Client ID gratuito (uma vez só): <b>1.</b> console.cloud.google.com → criar projeto. <b>2.</b> Ativar a <b>Google Drive API</b>. <b>3.</b> Tela de permissão OAuth → Externo → adicione seu e-mail em "Usuários de teste". <b>4.</b> Credenciais → ID do cliente OAuth → Aplicativo da Web → em "Origens JavaScript autorizadas" coloque o endereço deste site (e http://localhost). <b>5.</b> Cole o ID abaixo.</p>
+    <div class="dr"><div style="flex:2"><label>Client ID do Google</label><input id="cCid" placeholder="000-xxx.apps.googleusercontent.com"></div><div><label>Pasta raiz</label><input id="cRoot"></div></div>
+    <div class="dr"><button class="p" id="cS">Salvar</button><button id="cW" style="color:#ff8a70">Esquecer configuração</button></div></div>
+  </div>
+ </div>
 </div>
 
-<main>
- <div class="setup" id="setupView">
-  <h2>🔧 Configuração inicial</h2>
-  <p>Este painel acessa <b>a sua própria conta</b> do Google Drive, com o seu login. Para isso, o Google exige que você crie uma chave gratuita (Client ID) — leva uns 10 minutos e só precisa ser feito uma vez.</p>
-  <label>Client ID do Google (termina em .apps.googleusercontent.com)</label>
-  <input id="cid" placeholder="000000000000-xxxxxxxx.apps.googleusercontent.com">
-  <div class="steps">
-   <b>1.</b> Acesse <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener">console.cloud.google.com</a> e crie um projeto (qualquer nome).<br>
-   <b>2.</b> Menu ☰ → <b>APIs e serviços → Biblioteca</b> → busque <b>Google Drive API</b> → clique em <b>Ativar</b>.<br>
-   <b>3.</b> <b>APIs e serviços → Tela de permissão OAuth</b> → tipo <b>Externo</b> → preencha nome e e-mail → em "Usuários de teste" adicione o seu próprio e-mail do Google.<br>
-   <b>4.</b> <b>APIs e serviços → Credenciais → Criar credenciais → ID do cliente OAuth</b> → tipo <b>Aplicativo da Web</b>.<br>
-   <b>5.</b> Em "Origens JavaScript autorizadas" adicione o endereço onde esta página vai ficar (ex: <code>https://seu-usuario.github.io</code>) e também <code>http://localhost</code> para testar.<br>
-   <b>6.</b> Copie o <b>ID do cliente</b> gerado e cole no campo acima.
-  </div>
-  <button class="btn p" id="btnSaveCid" style="width:100%;margin-top:18px;padding:12px">Salvar e continuar</button>
- </div>
-
- <div class="view" id="v-organizar">
-  <div class="wizard">
-   <h2>⚡ Criar pasta em 1 clique</h2>
-   <p>Monta a estrutura <b>Clientes / Nome do cliente / Nome do projeto</b> no seu Drive (reaproveita pastas que já existem) e te dá o link para colar no site.</p>
-   <div class="wrow">
-    <div class="wf"><label>Cliente</label><input id="wCliente" placeholder="Ex: Maria Souza"></div>
-    <div class="wf"><label>Projeto</label><input id="wProjeto" placeholder="Ex: Identidade visual"></div>
-    <button class="btn p" id="btnWizard" style="padding:10px 20px">Criar / abrir pasta</button>
-   </div>
-   <div class="result" id="wResult">
-    <span>📁</span><code id="wLink"></code>
-    <button class="btn" id="btnCopy">Copiar link</button>
-    <a class="btn" id="btnOpenDrive" target="_blank" rel="noopener" style="text-decoration:none;display:inline-block">Abrir no Drive</a>
-   </div>
-  </div>
-
-  <div class="wizard" style="background:linear-gradient(135deg,#1a2b28,#1f1f22)">
-   <h2>📥 Pastas recentes</h2>
-   <p>Últimas pastas de cliente criadas por aqui.</p>
-   <div id="recentList" style="display:flex;flex-direction:column;gap:8px"></div>
-  </div>
- </div>
-
- <div class="view" id="v-arquivos">
-  <div class="crumbs" id="crumbs"></div>
-  <div class="panes">
-   <div class="tree" id="treeRoot"></div>
-   <div>
-    <div class="toolbar">
-     <button class="btn" id="btnNewFolder">+ Nova pasta</button>
-     <button class="btn" id="btnUpload">+ Enviar arquivo</button>
-     <input type="file" id="fileInput" multiple hidden>
-     <button class="btn" id="btnMove" disabled>Mover selecionados</button>
-     <button class="btn" id="btnRename" disabled>Renomear</button>
-     <button class="btn" id="btnTrash" disabled>Mover p/ lixeira</button>
-     <button class="btn" id="btnRefresh">↻ Atualizar</button>
-    </div>
-    <div class="filesbox" id="filesBox"></div>
-   </div>
-  </div>
- </div>
-
- <div class="view" id="v-config">
-  <div class="cfg-grid">
-   <div class="full"><h3 style="margin:0 0 4px">Configurações</h3><p style="color:var(--mute);font-size:.88rem;margin:0 0 10px">Ajustes do organizador. Mudanças ficam salvas neste navegador.</p></div>
-   <div><label style="font-size:.8rem;font-weight:700;color:#ddd">Nome da pasta raiz</label>
-    <input id="cfgRoot" style="width:100%;margin-top:6px;background:var(--bg3);border:1px solid var(--line);color:#fff;padding:10px;border-radius:8px;font:inherit">
-    <p style="font-size:.78rem;color:var(--mute);margin-top:6px">Onde o "Organizar rápido" cria as pastas de cliente.</p></div>
-   <div><label style="font-size:.8rem;font-weight:700;color:#ddd">Client ID do Google</label>
-    <input id="cfgCid" style="width:100%;margin-top:6px;background:var(--bg3);border:1px solid var(--line);color:#fff;padding:10px;border-radius:8px;font:inherit">
-    <p style="font-size:.78rem;color:var(--mute);margin-top:6px">Só muda se você criar uma nova chave no Google.</p></div>
-   <div class="full" style="display:flex;gap:10px">
-    <button class="btn p" id="btnSaveCfg">Salvar configurações</button>
-    <button class="btn" id="btnWipe" style="color:#ff8a70">Esquecer tudo e reconfigurar</button>
-   </div>
-  </div>
- </div>
-</main>
-
-<div class="ov" id="pickOv"><div class="mo"><h3>Escolha o destino</h3><div class="crumbs" id="pCrumbs"></div><div class="tree" id="pTree"></div>
- <div class="ma"><button class="btn" id="pCancel">Cancelar</button><button class="btn p" id="pConfirm">Mover para cá</button></div></div></div>
-<div class="ov" id="inputOv"><div class="mo"><h3 id="inTitle">Nome</h3><input id="inVal" style="width:100%;background:var(--bg3);border:1px solid var(--line);color:#fff;padding:10px;border-radius:8px;font:inherit">
- <div class="ma"><button class="btn" id="inCancel">Cancelar</button><button class="btn p" id="inOk">Confirmar</button></div></div></div>
-<div class="toast" id="toast"></div>
+<div class="ov" id="ov"><div class="mo" id="mo"></div></div><div class="lb" id="lb"><button class="x" id="lx">×</button><button class="a l" id="lp">‹</button><img id="li" alt=""><button class="a r" id="ln">›</button><div class="c" id="lc"></div></div><div class="toast" id="toast"></div>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script>
-const LS='organizador-drive-cfg', LS_R='organizador-recentes';
+const KEY='acervo-demo-v3',PASS='acervo2026';
+const DEF={slides:[
+{t:'Portfólio 2026',s:'Projetos que saem do papel e ganham vida.',b:'Ver projetos',h:'#projetos',e:'🎨',c:'#ffd9c2',tag:'#Acervo'},
+{t:'Novo projeto no ar: Padaria Trigo',s:'Identidade visual completa, do logo à embalagem.',b:'Conhecer o projeto',h:'#projetos',e:'🥖',c:'#f6e2b3',tag:'#NovoProjeto'},
+{t:'Vamos conversar sobre o seu?',s:'Orçamento sem compromisso em até 24 horas.',b:'Fale comigo',h:'#contato',e:'💬',c:'#cfe6df',tag:'#VemComigo'}],
+news:[{t:'Novo projeto no ar: Padaria Trigo',x:'Identidade visual completa, com logo, paleta e embalagens que já estão nas prateleiras.'},
+{t:'Agenda aberta para 2027',x:'Recebendo novos projetos de identidade visual, sites e embalagens. Vagas limitadas por trimestre.'},
+{t:'Feito com cuidado e detalhe',x:'Cada projeto começa ouvindo o cliente. Você acompanha tudo de perto e participa das decisões.'}],
+projs:[{id:'1',t:'Identidade visual — Padaria Trigo',c:'Maria Souza',d:'2026-08-12',x:'Novo logo, paleta de cores e embalagens para a padaria.',n:'Aguardando aprovação da fase 2.',pub:true,e:'🥖',g:'#8a5a1a,#c99a4b'},
+{id:'2',t:'Site institucional',c:'Estúdio Alma',d:'2026-06-03',x:'Site com portfólio e blog, entregue e no ar.',n:'',pub:true,e:'💻',g:'#25505a,#3f8a94'},
+{id:'3',t:'Embalagens de produto',c:'Doce Lar',d:'2026-05-20',x:'Linha de embalagens para 6 produtos da marca.',n:'',pub:true,e:'📦',g:'#7a2e2e,#c25a4a'},
+{id:'4',t:'Rebranding completo',c:'Café Raiz',d:'2026-09-01',x:'Reposicionamento de marca (proposta em análise).',n:'Valor: R$ 8.500. Follow-up sexta.',pub:false,e:'☕',g:'#3a2a1a,#7a5a3a'}]};
+let S;try{S=JSON.parse(localStorage.getItem(KEY))||JSON.parse(JSON.stringify(DEF))}catch(e){S=JSON.parse(JSON.stringify(DEF))}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(e){return false}};
 const $=id=>document.getElementById(id);
-let CFG=JSON.parse(localStorage.getItem(LS)||'{}');
-let token=null, tokenClient=null;
-let currentFolder='root', currentPath=[{id:'root',name:'Meu Drive'}];
-let folderCache={}, fileList=[], selected=new Set(), pickTarget=null, pickPath=[{id:'root',name:'Meu Drive'}];
+const esc=s=>{const d=document.createElement('div');d.textContent=s||'';return d.innerHTML.replace(/"/g,'&quot;')};
+let admin=false,i=0,timer;
+function toast(t){const x=$('toast');x.textContent=t;x.classList.add('on');setTimeout(()=>x.classList.remove('on'),2600)}
+function hero(){$('slides').innerHTML=S.slides.map(s=>`<div class="slide"><div class="txt"><h1>${esc(s.t)}</h1><p>${esc(s.s)}</p><a class="cta" href="${esc(s.h)}">${esc(s.b)} <span>→</span></a></div><div class="polaroid"><div class="pic" style="background:${s.c}">${s.e}</div><span>${esc(s.tag)}</span></div></div>`).join('');
+$('dots').innerHTML=S.slides.map((_,k)=>`<button data-k="${k}"></button>`).join('');go(i)}
+function go(n){i=(n+S.slides.length)%S.slides.length;[...$('slides').children].forEach((e,k)=>e.classList.toggle('on',k===i));[...$('dots').children].forEach((e,k)=>e.classList.toggle('on',k===i));clearInterval(timer);timer=setInterval(()=>go(i+1),6500)}
+$('prev').onclick=()=>go(i-1);$('next').onclick=()=>go(i+1);$('dots').onclick=e=>{if(e.target.dataset.k)go(+e.target.dataset.k)};
+function news(){$('novidades').innerHTML=S.news.map((n,k)=>`<article class="n${k}"><h2>${esc(n.t)}</h2><p>${esc(n.x)}</p><a href="#projetos">Leia mais</a></article>`).join('')}
+function counters(){const pub=S.projs.filter(p=>p.pub).length,cl=new Set(S.projs.map(p=>p.c)).size;[['s1',pub],['s2',cl],['s3',5]].forEach(([id,v])=>{let c=0;const el=$(id);const t=setInterval(()=>{c+=Math.max(1,Math.ceil(v/20));if(c>=v){c=v;clearInterval(t)}el.textContent=c},40)})}
+function rib(){const w='PORTFÓLIO ★ IDENTIDADE VISUAL ★ SITES ★ EMBALAGENS ★ ';$('rib').textContent=w.repeat(8)}
+function grid(){const q=$('q').value.toLowerCase().trim();
+let l=S.projs.filter(p=>(admin||p.pub)&&(!q||p.t.toLowerCase().includes(q)||p.c.toLowerCase().includes(q)));
+l.sort((a,b)=>$('ord').value==='a'?a.t.localeCompare(b.t,'pt-BR'):b.d.localeCompare(a.d));
+$('grid').innerHTML=l.length?l.map(p=>{const[y,m,d]=(p.d||'--').split('-');return`<div class="card">${admin&&!p.pub?'<span class="priv">🔒 PRIVADO</span>':''}<div class="cv" ${p.im&&p.im.length?`data-lb="${p.id}" style="cursor:zoom-in"`:`style="background:linear-gradient(135deg,${p.g})"`}>${p.im&&p.im.length?`<img src="${p.im[0]}" alt="">${p.im.length>1?`<span class="mr">+${p.im.length-1}</span>`:''}`:p.e}</div><div class="cb"><small>${p.d?d+'/'+m+'/'+y+(p.h?' às '+p.h:'')+' · ':''}${esc(p.c)}</small><h3>${esc(p.t)}</h3><p>${esc(p.x)}</p>${admin&&p.n?`<div class="note">🔒 ${esc(p.n)}</div>`:''}${admin&&p.dl?`<a class="note" href="${esc(p.dl)}" target="_blank" rel="noopener">📁 Pasta no Drive</a>`:''}<a class="q" href="#contato">Quero um assim →</a></div><div class="ca"><button data-ed="${p.id}">Editar</button><button data-del="${p.id}">Excluir</button></div></div>`}).join(''):'<div class="empty">Nenhum projeto encontrado.</div>'}
+$('q').oninput=grid;$('ord').onchange=grid;
+$('grid').onclick=e=>{const lc=e.target.closest('[data-lb]');if(lc){const q=S.projs.find(x=>x.id===lc.dataset.lb);if(q)lb(q.im,0);return}const a=e.target.dataset;if(a.ed)projModal(a.ed);if(a.del&&confirm('Excluir este projeto?')){S.projs=S.projs.filter(p=>p.id!==a.del);save();grid();toast('Projeto excluído')}};
+function modal(h,onSave){$('mo').innerHTML=h+'<div class="ma"><button id="mc">Cancelar</button><button class="p" id="ms">Salvar</button></div>';$('ov').classList.add('on');$('mc').onclick=close;$('ms').onclick=()=>{if(onSave()!==false)close()}}
+function close(){$('ov').classList.remove('on')}
+function slidesModal(){modal('<h2>Editar banner</h2>'+S.slides.map((s,k)=>`<label>Slide ${k+1} — título</label><input id="a${k}" value="${esc(s.t)}"><label>Subtítulo</label><input id="b${k}" value="${esc(s.s)}"><label>Texto do botão</label><input id="c${k}" value="${esc(s.b)}"><hr>`).join(''),()=>{S.slides.forEach((s,k)=>{s.t=$('a'+k).value;s.s=$('b'+k).value;s.b=$('c'+k).value});save();hero();toast('Banner atualizado')})}
+function newsModal(){modal('<h2>Editar novidades</h2>'+S.news.map((n,k)=>`<label>Novidade ${k+1} — título</label><input id="a${k}" value="${esc(n.t)}"><label>Texto</label><textarea id="b${k}">${esc(n.x)}</textarea><hr>`).join(''),()=>{S.news.forEach((n,k)=>{n.t=$('a'+k).value;n.x=$('b'+k).value});save();news();toast('Novidades atualizadas')})}
+function projModal(id,pre){const p=id?S.projs.find(x=>x.id===id):Object.assign({t:'',c:'',d:new Date().toISOString().slice(0,10),h:'',x:'',n:'',dl:'',pub:true,im:[]},pre||{});
+pend=[...(p.im||[])];
+modal(`<h2>${id?'Editar':'Novo'} projeto</h2><label>Nome do projeto</label><input id="f1" value="${esc(p.t)}"><label>Cliente</label><input id="f2" value="${esc(p.c)}"><label>Data</label><input id="f3" type="date" value="${p.d||''}"><label>Hora</label><input id="f7" type="time" value="${p.h||''}"><label>Descrição (público)</label><textarea id="f4">${esc(p.x)}</textarea><label>🔒 Notas privadas (só você vê)</label><textarea id="f5">${esc(p.n)}</textarea><label>📁 Link da pasta no Drive (só você vê)</label><input id="f8" value="${esc(p.dl)}" placeholder="https://drive.google.com/drive/folders/..."><label><input id="f6" type="checkbox" ${p.pub?'checked':''}>Mostrar na página do cliente</label><label>Fotos do projeto (até 8)</label><label class="drop">📷 Tirar foto ou escolher imagens<input id="fi" type="file" accept="image/*" multiple hidden></label><div class="th" id="th"></div><div class="hint" id="bh"></div>`,()=>{
+if(!$('f1').value.trim()||!$('f2').value.trim()){toast('Preencha projeto e cliente');return false}
+const em=['🎨','📐','🖼️','📦','💻','☕','🥖'],gs=['#25505a,#3f8a94','#7a2e2e,#c25a4a','#8a5a1a,#c99a4b','#3a4a7a,#5a7ac2'];
+const r=Object.assign(p,{t:$('f1').value.trim(),c:$('f2').value.trim(),d:$('f3').value,x:$('f4').value.trim(),n:$('f5').value.trim(),dl:$('f8').value.trim(),pub:$('f6').checked,h:$('f7').value,im:[...pend]});
+if(!id){r.id='p'+Date.now();r.e=em[Math.random()*em.length|0];r.g=gs[Math.random()*gs.length|0];S.projs.push(r)}
+if(!save()){if(!id)S.projs.pop();toast('Sem espaço para salvar — remova uma foto');return false}grid();counters();toast('Projeto salvo')});renderTh();$('fi').onchange=addImgs}
+function loginModal(){modal('<h2>🔒 Área restrita</h2><label>Senha</label><input id="pw" type="password" autofocus><div class="err" id="er"></div><div class="hint">Demonstração: a senha é <b>acervo2026</b>. No site real o login é feito pelo Supabase.</div>',()=>{if($('pw').value!==PASS){$('er').textContent='Senha incorreta.';return false}enter()});setTimeout(()=>{const p=$('pw');p&&p.addEventListener('keydown',e=>{if(e.key==='Enter')$('ms').click()})},50)}
+function enter(){admin=true;document.body.classList.add('adm');$('bar').classList.add('on');grid();toast('Modo edição ativado');history.replaceState(null,'',location.pathname)}
+$('out').onclick=()=>{admin=false;document.body.classList.remove('adm');$('bar').classList.remove('on');$('dv').classList.remove('on');grid();toast('Você saiu')};
+$('eS').onclick=slidesModal;$('eN').onclick=newsModal;$('eP').onclick=()=>projModal(null);
+let ck=0,ct;$('sec').onclick=()=>{ck++;clearTimeout(ct);ct=setTimeout(()=>ck=0,900);if(ck>=3){ck=0;if(!admin)loginModal()}};
+function chk(){if(location.hash==='#admin'&&!admin)loginModal()}addEventListener('hashchange',chk);
+let pend=[],L=[],Li=0;
+function lb(a,k){L=a;Li=k;$('li').src=L[Li];$('lc').textContent=(Li+1)+' / '+L.length;$('lp').style.display=$('ln').style.display=L.length>1?'block':'none';$('lb').classList.add('on')}
+$('lx').onclick=()=>$('lb').classList.remove('on');$('lp').onclick=()=>lb(L,(Li-1+L.length)%L.length);$('ln').onclick=()=>lb(L,(Li+1)%L.length);
+$('lb').onclick=e=>{if(e.target===$('lb'))$('lb').classList.remove('on')};
+const BUD=900000,used=()=>pend.reduce((t,x)=>t+x.length,0);
+function renderTh(){$('th').innerHTML=pend.map((s,k)=>`<div class="tb"><img src="${s}"><button type="button" data-r="${k}">×</button></div>`).join('');
+$('th').onclick=e=>{if(e.target.dataset.r!==undefined){pend.splice(+e.target.dataset.r,1);renderTh()}};
+$('bh').textContent=`Espaço das fotos: ${(used()/1e6).toFixed(1)}MB de ${(BUD/1e6).toFixed(1)}MB. As fotos são reduzidas automaticamente.`}
+function comp(f){return new Promise((res,rej)=>{const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{URL.revokeObjectURL(u);let d=1000,q=.75,out='';
+for(let t=0;t<10;t++){let w=im.width,h=im.height;const m=Math.max(w,h);if(m>d){w=Math.round(w*d/m);h=Math.round(h*d/m)}const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(im,0,0,w,h);out=c.toDataURL('image/jpeg',q);if(out.length<=150000)break;if(q>.45)q-=.1;else{d=Math.round(d*.8);q=.65}}res(out)};
+im.onerror=()=>{URL.revokeObjectURL(u);rej()};im.src=u})}
+async function addImgs(e){const fs=[...e.target.files].slice(0,8-pend.length);let bad=0,full=0;
+for(const f of fs){try{const s=await comp(f);if(used()+s.length>BUD){full++;continue}pend.push(s);renderTh()}catch(_){bad++}}
+e.target.value='';if(bad)toast(bad+' imagem(ns) não puderam ser lidas');if(full)toast('Espaço das fotos acabou — remova alguma para adicionar outra')}
 
-function toast(t){const x=$('toast');x.textContent=t;x.classList.add('on');setTimeout(()=>x.classList.remove('on'),2800)}
-function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+/* ================= DRIVE + PDF ================= */
+const DK='acervo-drive-cfg',DR='acervo-drive-rec',FM='application/vnd.google-apps.folder';
+let DC={};try{DC=JSON.parse(localStorage.getItem(DK))||{}}catch(e){}
+let tok=null,tc=null,cur='root',path=[{id:'root',name:'Meu Drive'}],cache={},fl=[],sel=new Set(),pT='root',pP=[],pdfB=null,pdfN='',pdfI=null,pvU=null,lastW=null;
+const dsave=()=>{try{localStorage.setItem(DK,JSON.stringify(DC))}catch(e){}};
+function dtab(t){document.querySelectorAll('#dtabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.dview').forEach(v=>v.classList.toggle('on',v.id==='d-'+t))}
+$('dtabs').onclick=e=>{const b=e.target.closest('button');if(b)dtab(b.dataset.t)};
+$('eD').onclick=()=>{$('dv').classList.add('on');$('cCid').value=DC.cid||'';$('cRoot').value=DC.root||'Clientes';recent();if(!DC.cid)dtab('c');else initG()};
+$('dX').onclick=()=>$('dv').classList.remove('on');
+function initG(){if(tc)return;if(!window.google||!google.accounts){setTimeout(initG,300);return}
+tc=google.accounts.oauth2.initTokenClient({client_id:DC.cid,scope:'https://www.googleapis.com/auth/drive',callback:r=>{if(r.error){toast('Não foi possível conectar');return}tok=r.access_token;$('bd').textContent='● Conectado';$('bd').className='bd on';$('dAuth').style.display='none';cache={};go2()}})}
+$('dAuth').onclick=()=>{if(!DC.cid){dtab('c');toast('Informe o Client ID primeiro');return}initG();if(!tc){toast('Aguarde, carregando…');return}tc.requestAccessToken()};
+$('cS').onclick=()=>{const v=$('cCid').value.trim();if(v&&!v.includes('.apps.googleusercontent.com')){toast('Client ID inválido');return}DC.cid=v;DC.root=$('cRoot').value.trim()||'Clientes';dsave();tc=null;cache={};toast('Configurações salvas');if(v)initG()};
+$('cW').onclick=()=>{if(confirm('Esquecer o Client ID salvo neste navegador? (o Drive não é afetado)')){localStorage.removeItem(DK);DC={};tc=null;tok=null;$('cCid').value=''}};
+async function api(p,o={}){if(!tok){toast('Conecte-se ao Google primeiro');throw new Error('no token')}
+const r=await fetch('https://www.googleapis.com/drive/v3/'+p,{...o,headers:{...(o.headers||{}),Authorization:'Bearer '+tok}});
+if(!r.ok){if(r.status===401){tok=null;toast('Sessão expirou, conecte de novo')}throw new Error(await r.text())}return r.status===204?null:r.json()}
+async function ls(id){if(cache[id])return cache[id];const d=await api(`files?q=${encodeURIComponent(`'${id}' in parents and trashed=false`)}&fields=files(id,name,mimeType,modifiedTime,webViewLink)&orderBy=folder,name&pageSize=200`);return cache[id]=d.files||[]}
+async function foc(n,par){const d=await api(`files?q=${encodeURIComponent(`name='${n.replace(/'/g,"\\'")}' and '${par}' in parents and mimeType='${FM}' and trashed=false`)}&fields=files(id,name)`);if(d.files&&d.files.length)return d.files[0];
+return api('files',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,mimeType:FM,parents:[par]})})}
+async function upl(name,blob,par){const f=new FormData();f.append('metadata',new Blob([JSON.stringify({name,parents:[par]})],{type:'application/json'}));f.append('file',blob);
+const r=await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{Authorization:'Bearer '+tok},body:f});if(!r.ok)throw new Error('up');return r.json()}
+const ask=(t,d='')=>new Promise(r=>{modal(`<h2>${t}</h2><input id="aiv" value="${esc(d)}">`,()=>{r($('aiv').value.trim())});$('mc').addEventListener('click',()=>r(null));setTimeout(()=>$('aiv')&&$('aiv').focus(),50)});
+/* rápido */
+$('wGo').onclick=async()=>{const c=$('wC').value.trim(),p=$('wP').value.trim();if(!c||!p){toast('Preencha cliente e projeto');return}
+const b=$('wGo');b.disabled=true;b.textContent='Criando…';
+try{const r=await foc(DC.root||'Clientes','root'),cf=await foc(c,r.id),pf=await foc(p,cf.id),l='https://drive.google.com/drive/folders/'+pf.id;
+lastW={c,t:p,dl:l};$('wL').textContent=l;$('wOpen').href=l;$('wOut').classList.add('on');
+let rc=[];try{rc=JSON.parse(localStorage.getItem(DR)||'[]')}catch(e){}rc.unshift({c,p,l});try{localStorage.setItem(DR,JSON.stringify(rc.slice(0,8)))}catch(e){}
+recent();cache={};toast('Pasta pronta!')}catch(e){toast('Erro ao criar pasta')}finally{b.disabled=false;b.textContent='Criar / abrir pasta'}};
+$('wCp').onclick=()=>navigator.clipboard.writeText($('wL').textContent).then(()=>toast('Link copiado'));
+$('wNew').onclick=()=>{if(!lastW)return;$('dv').classList.remove('on');projModal(null,lastW)};
+function recent(){let rc=[];try{rc=JSON.parse(localStorage.getItem(DR)||'[]')}catch(e){}
+$('dRec').innerHTML=rc.length?rc.map(r=>`<div class="fr" style="border:1px solid var(--line);border-radius:8px"><span class="nm">📁 <b>${esc(r.c)}</b> · ${esc(r.p)}</span><a href="${esc(r.l)}" target="_blank" rel="noopener">Abrir ↗</a></div>`).join(''):'<span class="mu">Nenhuma pasta criada ainda.</span>'}
+/* arquivos */
+const crumbs=a=>a.map((x,k)=>`<button class="lk" data-i="${k}" data-id="${x.id}">${esc(x.name)}</button>`).join(' / ');
+const kids=async id=>(await ls(id)).filter(f=>f.mimeType===FM);
+const fold=a=>a.length?a.map(f=>`<div class="it" data-id="${f.id}" data-n="${esc(f.name)}">📁 ${esc(f.name)}</div>`).join(''):'<div class="mu" style="padding:8px">Sem subpastas.</div>';
+function nav(id,n){path.push({id,name:n});cur=id;go2()}
+function go2(){$('dCr').innerHTML=crumbs(path);tree();files()}
+async function tree(){const el=$('dTree');el.textContent='Carregando…';try{el.innerHTML=fold(await kids(cur))}catch(e){el.textContent='Não foi possível carregar.'}}
+$('dCr').onclick=e=>{const b=e.target.closest('button');if(!b)return;path=path.slice(0,+b.dataset.i+1);cur=b.dataset.id;go2()};
+$('dTree').onclick=e=>{const t=e.target.closest('.it');if(t)nav(t.dataset.id,t.dataset.n)};
+async function files(){sel.clear();btns();const bx=$('dFiles');bx.textContent='Carregando…';
+try{fl=await ls(cur);bx.innerHTML=fl.length?fl.map(f=>{const fo=f.mimeType===FM,pdf=f.mimeType==='application/pdf';
+return`<div class="fr"><input type="checkbox" data-c="${f.id}"><span class="nm" ${fo?`data-o="${f.id}" data-n="${esc(f.name)}" style="cursor:pointer"`:''}>${fo?'📁':pdf?'📕':'📄'} ${esc(f.name)}</span><span class="mu">${f.modifiedTime?new Date(f.modifiedTime).toLocaleDateString('pt-BR'):''}</span>${pdf?`<button data-pdf="${f.id}" data-n="${esc(f.name)}">✏️ Editar PDF</button>`:''}${f.webViewLink?`<a href="${f.webViewLink}" target="_blank" rel="noopener">Abrir</a>`:''}</div>`}).join(''):'<div class="mu" style="padding:40px;text-align:center">Pasta vazia.</div>'}catch(e){bx.textContent='Não foi possível carregar esta pasta.'}}
+$('dFiles').onclick=e=>{const o=e.target.closest('[data-o]');if(o){nav(o.dataset.o,o.dataset.n);return}const p=e.target.closest('[data-pdf]');if(p){openPdf(p.dataset.pdf,p.dataset.n);return}const c=e.target.closest('input[data-c]');if(c){c.checked?sel.add(c.dataset.c):sel.delete(c.dataset.c);btns()}};
+function btns(){$('dMv').disabled=$('dTr').disabled=!sel.size;$('dRn').disabled=sel.size!==1}
+const refresh=()=>{cache={};go2()};$('dRf').onclick=refresh;
+$('dNf').onclick=async()=>{const n=await ask('Nome da nova pasta');if(!n)return;try{await api('files',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,mimeType:FM,parents:[cur]})});refresh();toast('Pasta criada')}catch(e){toast('Erro ao criar pasta')}};
+$('dUp').onclick=()=>$('dFi').click();
+$('dFi').onchange=async e=>{const fs=[...e.target.files];if(!fs.length)return;if(!tok){toast('Conecte-se ao Google primeiro');return}toast('Enviando '+fs.length+' arquivo(s)…');
+for(const f of fs){try{await upl(f.name,f,cur)}catch(x){toast('Falha ao enviar '+f.name)}}e.target.value='';refresh();toast('Envio concluído')};
+$('dRn').onclick=async()=>{const id=[...sel][0],c=fl.find(f=>f.id===id),n=await ask('Novo nome',c?c.name:'');if(!n)return;try{await api('files/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n})});refresh();toast('Renomeado')}catch(e){toast('Erro ao renomear')}};
+$('dTr').onclick=async()=>{if(!confirm('Mover '+sel.size+' item(ns) para a lixeira do Drive?'))return;for(const id of sel){try{await api('files/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({trashed:true})})}catch(e){}}refresh();toast('Enviado(s) para a lixeira')};
+async function pk(id){$('pC').innerHTML=crumbs(pP);pT=id;const el=$('pTr');el.textContent='…';try{el.innerHTML=fold(await kids(id))}catch(e){el.textContent='Erro ao carregar'}}
+$('dMv').onclick=()=>{pP=[{id:'root',name:'Meu Drive'}];
+modal('<h2>Escolha o destino</h2><div id="pC" class="mu"></div><div id="pTr" style="max-height:280px;overflow:auto;margin-top:8px"></div>',async()=>{const d=pT;for(const id of sel){try{await api(`files/${id}?addParents=${d}&removeParents=${cur}`,{method:'PATCH'})}catch(e){}}refresh();toast('Movido(s) com sucesso')});
+$('pC').onclick=e=>{const b=e.target.closest('button');if(!b)return;pP=pP.slice(0,+b.dataset.i+1);pk(b.dataset.id)};
+$('pTr').onclick=e=>{const t=e.target.closest('.it');if(!t)return;pP.push({id:t.dataset.id,name:t.dataset.n});pk(t.dataset.id)};pk('root')};
+/* PDF */
+function pdfSet(b,n,id){pdfB=b;if(n!==undefined){pdfN=n;pdfI=id||null}if(pvU)URL.revokeObjectURL(pvU);pvU=URL.createObjectURL(new Blob([b],{type:'application/pdf'}));$('pF').src=pvU;$('pNm').textContent=pdfN+(pdfI?' (do Drive)':'')}
+async function openPdf(id,n){dtab('p');toast('Baixando PDF…');try{const r=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`,{headers:{Authorization:'Bearer '+tok}});if(!r.ok)throw 0;pdfSet(new Uint8Array(await r.arrayBuffer()),n,id)}catch(e){toast('Não foi possível baixar o PDF')}}
+$('pOpen').onchange=async e=>{const f=e.target.files[0];if(f)pdfSet(new Uint8Array(await f.arrayBuffer()),f.name,null);e.target.value=''};
+async function pdfOp(fn){if(!pdfB){toast('Abra um PDF primeiro');return}if(!window.PDFLib){toast('Biblioteca de PDF não carregou');return}
+try{const d=await PDFLib.PDFDocument.load(pdfB);await fn(d);pdfSet(await d.save());toast('Feito')}catch(e){toast('Não deu certo — confira a página e os valores');console.error(e)}}
+const pn=()=>+$('pg').value-1;
+$('pAdd').onclick=()=>pdfOp(async d=>{const pg=d.getPage(pn()),f=await d.embedFont(PDFLib.StandardFonts.Helvetica),s=+$('pS').value||12,t=$('pT').value,x=+$('pX').value,y=+$('pY').value;
+if(!t)throw 0;if($('pBg').checked)pg.drawRectangle({x:x-2,y:y-2,width:f.widthOfTextAtSize(t,s)+4,height:s+4,color:PDFLib.rgb(1,1,1)});
+pg.drawText(t,{x,y,size:s,font:f,color:PDFLib.rgb(0,0,0)})});
+$('pRot').onclick=()=>pdfOp(async d=>{const pg=d.getPage(pn());pg.setRotation(PDFLib.degrees((pg.getRotation().angle+90)%360))});
+$('pDel').onclick=()=>pdfOp(async d=>{if(d.getPageCount()<2)throw 0;d.removePage(pn())});
+$('pMg').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const ob=new Uint8Array(await f.arrayBuffer());
+pdfOp(async d=>{const o=await PDFLib.PDFDocument.load(ob),ps=await d.copyPages(o,o.getPageIndices());ps.forEach(p=>d.addPage(p))})};
+$('pDl').onclick=()=>{if(!pdfB){toast('Abra um PDF primeiro');return}const a=document.createElement('a');a.href=pvU;a.download=pdfN.replace(/\.pdf$/i,'')+'-editado.pdf';a.click()};
+$('pSv').onclick=async()=>{if(!pdfB||!pdfI){toast('Só vale para PDF aberto do Drive');return}if(!confirm('Substituir o PDF original no Drive? (o Drive guarda o histórico de versões)'))return;
+try{const r=await fetch(`https://www.googleapis.com/upload/drive/v3/files/${pdfI}?uploadType=media`,{method:'PATCH',headers:{Authorization:'Bearer '+tok,'Content-Type':'application/pdf'},body:pdfB});if(!r.ok)throw 0;toast('PDF atualizado no Drive')}catch(e){toast('Erro ao salvar')}};
+$('pCp').onclick=async()=>{if(!pdfB){toast('Abra um PDF primeiro');return}if(!tok){toast('Conecte-se ao Google primeiro');return}
+try{await upl(pdfN.replace(/\.pdf$/i,'')+'-editado.pdf',new Blob([pdfB],{type:'application/pdf'}),cur);cache={};toast('Cópia salva na pasta atual do Drive')}catch(e){toast('Erro ao salvar')}};
 
-// ---------- Setup / config ----------
-function boot(){
- if(!CFG.cid){ $('setupView').style.display='block'; $('tabs').style.display='none'; return; }
- $('setupView').style.display='none'; $('tabs').style.display='flex';
- $('cfgRoot').value=CFG.root||'Clientes'; $('cfgCid').value=CFG.cid;
- initGis();
-}
-$('btnSaveCid').onclick=()=>{
- const v=$('cid').value.trim();
- if(!v.includes('.apps.googleusercontent.com')){ toast('Cole o Client ID completo do Google'); return; }
- CFG.cid=v; CFG.root=CFG.root||'Clientes'; localStorage.setItem(LS,JSON.stringify(CFG)); boot();
-};
-$('btnSaveCfg').onclick=()=>{
- CFG.root=$('cfgRoot').value.trim()||'Clientes'; CFG.cid=$('cfgCid').value.trim();
- localStorage.setItem(LS,JSON.stringify(CFG)); toast('Configurações salvas'); folderCache={};
-};
-$('btnWipe').onclick=()=>{ if(confirm('Isso apaga a configuração salva neste navegador (o Drive não é afetado). Continuar?')){ localStorage.removeItem(LS); location.reload(); } };
-
-function initGis(){
- function ready(){
-  if(!window.google||!google.accounts){ setTimeout(ready,200); return; }
-  tokenClient=google.accounts.oauth2.initTokenClient({
-   client_id:CFG.cid, scope:'https://www.googleapis.com/auth/drive',
-   callback:(resp)=>{ if(resp.error){ toast('Não foi possível conectar: '+resp.error); return; } token=resp.access_token; onAuthed(); }
-  });
- } ready();
-}
-$('btnAuth').onclick=()=>{ if(!tokenClient){ toast('Aguarde, carregando…'); return; } tokenClient.requestAccessToken(); };
-$('btnLogout').onclick=()=>{ if(token) google.accounts.oauth2.revoke(token,()=>{}); token=null;
- $('stBadge').className='badge off'; $('stBadge').innerHTML='<i></i>Desconectado';
- $('btnAuth').style.display=''; $('btnLogout').style.display='none';
-};
-function onAuthed(){
- $('stBadge').className='badge on'; $('stBadge').innerHTML='<i></i>Conectado';
- $('btnAuth').style.display='none'; $('btnLogout').style.display='';
- loadTree('treeRoot', currentFolder); loadFiles(); renderRecent();
-}
-
-// ---------- Tabs ----------
-document.getElementById('tabs').onclick=e=>{
- const b=e.target.closest('button'); if(!b) return;
- document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
- document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
- $('v-'+b.dataset.t).classList.add('on');
-};
-
-// ---------- Drive API helpers ----------
-async function api(path,opts={}){
- const r=await fetch('https://www.googleapis.com/drive/v3/'+path,{...opts,headers:{...(opts.headers||{}),Authorization:'Bearer '+token}});
- if(r.status===401){ toast('Sessão expirou, conecte novamente'); $('btnAuth').click(); throw new Error('401'); }
- if(!r.ok){ const t=await r.text(); throw new Error(t); }
- return r.status===204?null:r.json();
-}
-async function listChildren(id){
- if(folderCache[id]) return folderCache[id];
- const q=encodeURIComponent(`'${id}' in parents and trashed=false`);
- const data=await api(`files?q=${q}&fields=files(id,name,mimeType,modifiedTime,webViewLink,iconLink)&orderBy=folder,name&pageSize=200`);
- folderCache[id]=data.files||[]; return folderCache[id];
-}
-async function findOrCreateFolder(name,parent){
- const q=encodeURIComponent(`name='${name.replace(/'/g,"\\'")}' and '${parent}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`);
- const data=await api(`files?q=${q}&fields=files(id,name)`);
- if(data.files&&data.files.length) return data.files[0];
- return api('files',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,mimeType:'application/vnd.google-apps.folder',parents:[parent]})});
-}
-
-// ---------- Wizard rápido ----------
-$('btnWizard').onclick=async()=>{
- if(!token){ toast('Conecte-se ao Google primeiro'); return; }
- const cli=$('wCliente').value.trim(), proj=$('wProjeto').value.trim();
- if(!cli||!proj){ toast('Preencha cliente e projeto'); return; }
- const btn=$('btnWizard'); btn.disabled=true; btn.innerHTML='<span class="spin"></span> Criando…';
- try{
-  const root=await findOrCreateFolder(CFG.root||'Clientes','root');
-  const clientF=await findOrCreateFolder(cli,root.id);
-  const projF=await findOrCreateFolder(proj,clientF.id);
-  const link=`https://drive.google.com/drive/folders/${projF.id}`;
-  $('wLink').textContent=link; $('wResult').classList.add('on'); $('btnOpenDrive').href=link;
-  const rec=JSON.parse(localStorage.getItem(LS_R)||'[]'); rec.unshift({cli,proj,link,t:Date.now()});
-  localStorage.setItem(LS_R,JSON.stringify(rec.slice(0,8))); renderRecent();
-  folderCache={}; toast('Pasta pronta!');
- }catch(err){ toast('Erro ao criar pasta'); console.error(err); }
- finally{ btn.disabled=false; btn.textContent='Criar / abrir pasta'; }
-};
-$('btnCopy').onclick=()=>{ navigator.clipboard.writeText($('wLink').textContent).then(()=>toast('Link copiado — cole no campo "link" do projeto no Acervo')); };
-function renderRecent(){
- const rec=JSON.parse(localStorage.getItem(LS_R)||'[]');
- $('recentList').innerHTML=rec.length?rec.map(r=>`<div class="frow" style="border:1px solid var(--line);border-radius:8px"><span class="ic">📁</span><span class="nm"><b>${esc(r.cli)}</b> · ${esc(r.proj)}</span><a href="${r.link}" target="_blank" rel="noopener">Abrir ↗</a></div>`).join(''):'<p style="color:var(--mute);font-size:.85rem">Nenhuma pasta criada ainda.</p>';
-}
-
-// ---------- Árvore ----------
-async function loadTree(elId,activeId){
- const el=$(elId); el.innerHTML='<div style="padding:14px;color:var(--mute);font-size:.85rem"><span class="spin"></span> Carregando…</div>';
- try{
-  const kids=(await listChildren(activeId==='root'?'root':activeId)).filter(f=>f.mimeType==='application/vnd.google-apps.folder');
-  el.innerHTML = kids.length? kids.map(f=>`<div class="item" data-id="${f.id}" data-name="${esc(f.name)}">📁 ${esc(f.name)}</div>`).join('') : '<div style="padding:10px;color:var(--mute);font-size:.82rem">Nenhuma subpasta.</div>';
- }catch(e){ el.innerHTML='<div style="padding:10px;color:var(--mute);font-size:.82rem">Não foi possível carregar.</div>'; }
-}
-$('treeRoot').onclick=e=>{ const it=e.target.closest('.item'); if(!it) return; navigateTo(it.dataset.id,it.dataset.name); };
-function crumbsHtml(path){ return path.map((p,k)=>`<button data-i="${k}" data-id="${p.id}">${esc(p.name)}</button>${k<path.length-1?' / ':''}`).join(''); }
-function navigateTo(id,name){ currentPath.push({id,name}); currentFolder=id; renderCrumbs(); loadFiles(); loadTree('treeRoot',id); }
-function renderCrumbs(){ $('crumbs').innerHTML=crumbsHtml(currentPath);
- $('crumbs').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const i=+b.dataset.i; currentPath=currentPath.slice(0,i+1); currentFolder=b.dataset.id; loadFiles(); loadTree('treeRoot',currentFolder); }; }
-
-// ---------- Lista de arquivos ----------
-async function loadFiles(){
- selected.clear(); updateActionBtns();
- const box=$('filesBox'); box.innerHTML='<div class="empty"><span class="spin"></span> Carregando…</div>';
- try{
-  fileList=await listChildren(currentFolder);
-  box.innerHTML = fileList.length ? fileList.map(f=>{
-   const isFolder=f.mimeType==='application/vnd.google-apps.folder';
-   const dt=f.modifiedTime?new Date(f.modifiedTime).toLocaleDateString('pt-BR'):'';
-   return `<div class="frow" data-id="${f.id}" data-folder="${isFolder}">
-    <input type="checkbox" data-c="${f.id}">
-    <span class="ic" ${isFolder?`data-open="${f.id}" data-name="${esc(f.name)}" style="cursor:pointer"`:''}>${isFolder?'📁':'📄'}</span>
-    <span class="nm" ${isFolder?`data-open="${f.id}" data-name="${esc(f.name)}" style="cursor:pointer"`:''}>${esc(f.name)}</span>
-    <span class="dt">${dt}</span>
-    ${f.webViewLink?`<a href="${f.webViewLink}" target="_blank" rel="noopener">Abrir</a>`:''}
-   </div>`;
-  }).join('') : '<div class="empty">Pasta vazia.</div>';
- }catch(e){ box.innerHTML='<div class="empty">Não foi possível carregar esta pasta.</div>'; }
-}
-$('filesBox').onclick=e=>{
- const open=e.target.closest('[data-open]');
- if(open && !e.target.matches('input')){ navigateTo(open.dataset.open,open.dataset.name); return; }
- const c=e.target.closest('input[data-c]');
- if(c){ c.checked?selected.add(c.dataset.c):selected.delete(c.dataset.c); updateActionBtns(); }
-};
-function updateActionBtns(){ const n=selected.size>0; $('btnMove').disabled=!n; $('btnTrash').disabled=!n; $('btnRename').disabled=selected.size!==1; }
-$('btnRefresh').onclick=()=>{ folderCache={}; loadFiles(); loadTree('treeRoot',currentFolder); };
-
-// ---------- Novas pastas / upload ----------
-function askInput(title,def=''){
- return new Promise(res=>{
-  $('inTitle').textContent=title; $('inVal').value=def; $('inputOv').classList.add('on'); $('inVal').focus();
-  const close=v=>{ $('inputOv').classList.remove('on'); $('inOk').onclick=null; $('inCancel').onclick=null; res(v); };
-  $('inOk').onclick=()=>close($('inVal').value.trim());
-  $('inCancel').onclick=()=>close(null);
- });
-}
-$('btnNewFolder').onclick=async()=>{
- const name=await askInput('Nome da nova pasta'); if(!name) return;
- try{ await api('files',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,mimeType:'application/vnd.google-apps.folder',parents:[currentFolder]})});
-  folderCache={}; loadFiles(); loadTree('treeRoot',currentFolder); toast('Pasta criada'); }catch(e){ toast('Erro ao criar pasta'); }
-};
-$('btnUpload').onclick=()=>$('fileInput').click();
-$('fileInput').onchange=async e=>{
- const files=[...e.target.files]; if(!files.length) return;
- toast('Enviando '+files.length+' arquivo(s)…');
- for(const f of files){
-  try{
-   const meta={name:f.name,parents:[currentFolder]};
-   const form=new FormData();
-   form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));
-   form.append('file',f);
-   await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{Authorization:'Bearer '+token},body:form});
-  }catch(err){ toast('Falha ao enviar '+f.name); }
- }
- e.target.value=''; folderCache={}; loadFiles(); toast('Envio concluído');
-};
-$('btnRename').onclick=async()=>{
- const id=[...selected][0]; const cur=fileList.find(f=>f.id===id);
- const name=await askInput('Novo nome',cur?cur.name:''); if(!name) return;
- try{ await api('files/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});
-  folderCache={}; loadFiles(); toast('Renomeado'); }catch(e){ toast('Erro ao renomear'); }
-};
-$('btnTrash').onclick=async()=>{
- if(!confirm('Mover '+selected.size+' item(ns) para a lixeira do Drive?')) return;
- for(const id of selected){ try{ await api('files/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({trashed:true})}); }catch(e){} }
- folderCache={}; loadFiles(); toast('Enviado(s) para a lixeira');
-};
-
-// ---------- Mover (picker) ----------
-$('btnMove').onclick=()=>{ pickPath=[{id:'root',name:'Meu Drive'}]; pickTarget=null; openPicker('root'); $('pickOv').classList.add('on'); };
-async function openPicker(id){
- $('pCrumbs').innerHTML=crumbsHtml(pickPath);
- $('pCrumbs').onclick=e=>{ const b=e.target.closest('button'); if(!b) return; const i=+b.dataset.i; pickPath=pickPath.slice(0,i+1); openPicker(b.dataset.id); };
- const el=$('pTree'); el.innerHTML='<div style="padding:10px;color:var(--mute)"><span class="spin"></span></div>';
- const kids=(await listChildren(id)).filter(f=>f.mimeType==='application/vnd.google-apps.folder');
- pickTarget=id;
- el.innerHTML = kids.length? kids.map(f=>`<div class="item" data-id="${f.id}" data-name="${esc(f.name)}">📁 ${esc(f.name)}</div>`).join('') : '<div style="padding:10px;color:var(--mute);font-size:.82rem">Sem subpastas aqui.</div>';
- el.onclick=e=>{ const it=e.target.closest('.item'); if(!it) return; pickPath.push({id:it.dataset.id,name:it.dataset.name}); openPicker(it.dataset.id); };
-}
-$('pCancel').onclick=()=>$('pickOv').classList.remove('on');
-$('pConfirm').onclick=async()=>{
- const dest=pickTarget; if(!dest){ $('pickOv').classList.remove('on'); return; }
- for(const id of selected){
-  try{ const f=fileList.find(x=>x.id===id); const prevParents=(f&&f.parents)?f.parents.join(','):currentFolder;
-   await api(`files/${id}?addParents=${dest}&removeParents=${currentFolder}`,{method:'PATCH'}); }catch(e){}
- }
- $('pickOv').classList.remove('on'); folderCache={}; loadFiles(); toast('Movido(s) com sucesso');
-};
-
-boot();
+hero();news();rib();grid();counters();chk();
 </script>
 </body>
 </html>
